@@ -1,0 +1,29 @@
+<html manifest="08sol_cache.manifest">
+    <head>
+        <title>Offline App Lab</title>
+        <script type="text/javascript">
+			window.onload = function() {
+				show();
+			}
+		
+            function show() {                
+                var addresses = localStorage["addresses"] ? JSON.parse(localStorage["addresses"]) : [];
+                document.querySelector('#addressList').innerHTML = "";
+                for (var i=0; i<addresses.length; i++) {
+                    var item = document.createElement("li");
+                    item.innerHTML = addresses[i].firstName + " " + addresses[i].lastName + " " 
+                                + addresses[i].email;
+                    document.querySelector('#addressList').appendChild(item);                
+                }                
+            }        
+        </script>
+    </head>
+    <body>
+        <h2>Lab</h2>        
+        Addresses:
+        <ul id="addressList">
+        </ul>     
+		<br/>
+		<a href="08sol_offline1.html">Add Names to Address Book</a>
+    </body>
+</html>

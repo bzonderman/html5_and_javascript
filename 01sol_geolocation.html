@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>GEOLOCATION Lab</title>
+        <script type="text/javascript">
+            function parse(data) {
+                    document.querySelector("textarea").value = data.Placemark[0].address;
+            };
+            
+            function showMyAddress(lat, lon) {                
+                var s = document.createElement("script");
+                s.src = "http://maps.google.com/maps/geo?q="
+                 + lat + "," + lon + "&sensor=false&output=json&callback=parse";
+                document.body.appendChild(s);
+            }        
+            
+            function lookUp() {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    showMyAddress(position.coords.latitude, position.coords.longitude);
+                });
+            }  
+        </script>
+    </head>
+    <body>
+        <h2>GEOLOCATION Notes and Examples</h2>
+        <p>An example that looks up a user's location</p>      
+        <p>Once you have found the user's latitude and longitude, call showMyAddress(lat,long); to reverse geocode the co-ordinates</p>
+         <button onclick="lookUp();">Look up my location</button>
+        <br/>
+        <textarea cols="60" rows="6"></textarea>
+    </body>
+</html>

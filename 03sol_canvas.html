@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Canvas Lab</title>
+        <script type="text/javascript">
+            window.onload = function() {
+                canv = document.querySelector('#myCanvas');               
+                canv.onclick = function(e) {
+                    var x = e.clientX - canv.offsetLeft;
+                    var y = e.clientY - canv.offsetTop;
+                    draw(x,y);
+                }; 
+            }
+            
+            var newCanvas = true;
+            
+            function draw(x, y) {                
+                ctx = canv.getContext("2d");
+                if (newCanvas) {
+                    ctx.moveTo(x,y);
+                    newCanvas = false;
+                }                 
+                ctx.lineTo(x,y);
+                ctx.stroke();                                
+            }    
+
+            function erase() {
+                ctx.fillStyle = "white";
+                ctx.fillRect(0,0,canv.width,canv.height);
+                ctx.beginPath();
+                newCanvas = true;
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Lab</h2>
+        <p>A very simple drawing program</p>
+        <button onclick="erase();">erase</button>        
+        <br/>
+        <canvas id="myCanvas" width="400" height="400"/>        
+    </body>
+</html>

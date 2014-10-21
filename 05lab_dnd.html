@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Drag/Drop Lab</title>        
+        <script type="text/javascript">                  
+            window.onload = function() {
+                items = document.querySelectorAll("#catalog li");
+                //add a drag start handler to each of those items
+                
+                //add dragover and drop handlers to the cart and the trash
+                
+                priceTotal = 0;
+            }
+            
+            //define the drag start function for a catalog item:
+            handleDragStart = function(e) {                
+                //set the data to keep the item name and price                               
+            }
+            
+            handleDragOverCart = function(e) {               
+                //allow drop only if the item is being dragged from the catalog, NOT from the cart                
+            }
+            
+            handleDragOverTrash = function(e) {               
+                //allow drop only if the item is being dragged from the cart, NOT from the catalog                
+            }
+            
+            handleDropInCart = function(e) {
+                //allow drop
+                //get the price data from the item
+                //create a new HTML element to go in our cart list
+                //set the product name as visible content in that element
+                //add a unique ID (so we can find it later if we need to remove it from the cart)
+                //set the element to be draggable
+                //add a dragstart listener to the element that preserves the ID and price in dataTransfer
+                //HINT: add an element to dataTransfer to signal that this item is coming from the cart (not the catalog)
+                //show the element
+                //update the price total                
+            }
+            
+            handleDropInTrash = function(e) {
+                //allow drop
+                //get the price of the item being dropped
+                //using the ID preserved in dataTransfer, remove the item from the cart list
+                //update the price total
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Drag/Drop Lab</h2>  
+        <div>
+            <h4>General Store :: Product Catalog</h4>
+            <ul id="catalog">
+                <li data-price="0.25" draggable="true">12-oz. Cup</li>
+                <li data-price="0.99" draggable="true">Pack of 100 Colored Index Cards</li>
+                <li data-price="12.50" draggable="true">SD Cards Reader (USB 2)</li>
+                <li data-price="1.10" draggable="true">Gourd, Decorative</li>
+            </ul>
+        </div>
+        <hr/>
+        <div id="cart">
+            <h4>My Shopping Cart</h4>
+            <ul>
+            </ul>
+            Total price: $<span id="total">0.00</span>
+        </div>
+        <hr/>
+        <div id="trash">
+        <h5>Trash - Drag Items Here to Remove them From the Cart</h5>
+        <br/>
+        <br/>
+        </div>
+    </body>
+</html>

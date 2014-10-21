@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>SVG Raphael Notes and Examples</title>
+        <script src="https://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            function draw() {
+                paper = Raphael("mySVG");
+                circle = paper.circle(100, 100, 50);
+                circle.attr("fill", "#f00");
+                text  = paper.text(100, 200, "Hello World!").attr("font", "24pt Times");
+                text.click(function (event) { this.attr({fill: "green"}); });
+                var start = function () {
+                    // storing original coordinates
+                    this.ox = this.attr("cx");
+                    this.oy = this.attr("cy");
+                    this.attr({opacity: 0.5});
+                },
+                
+                move = function (dx, dy) {
+                    // move will be called with dx and dy
+                    this.attr({cx: this.ox + dx, cy: this.oy + dy});
+                },
+                
+                up = function () {
+                    // restoring state
+                    this.attr({opacity: 1});
+                };
+                circle.drag(move, start, up);                
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Notes and Examples</h2>        
+        <button onclick="draw();">draw</button>        
+        <br/>
+        <div id="mySVG" width="400" height="400"/>        
+    </body>
+</html>

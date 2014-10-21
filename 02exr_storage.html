@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Storage Notes and Examples</title>
+        <script type="text/javascript">
+            function saveToStorage(name) {
+                localStorage["name"] = name;
+            }        
+            
+            function getFromStorage() {
+                return localStorage["name"];
+            }
+            
+            function display() {
+                document.querySelector('textarea').innerHTML = getFromStorage();             
+            }
+            
+            function save() {
+                saveToStorage(document.querySelector('#name').value);   
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Notes and Examples</h2>
+        <p>A very simple example that reads and write a user's name to/from storage</p>
+        Name: <input type="text" id="name"/> <button onclick="save();">save</button>        
+        <br/>
+        <button onclick="display();">display</button><br/>
+        <textarea cols="60" rows="6"></textarea>
+    </body>
+</html>

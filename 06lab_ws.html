@@ -1,0 +1,66 @@
+<html>
+    <head>
+    <title>WebSocket Notes and Examples</title>
+
+    <style>
+     #log {width:440px; height:200px; border:1px solid #7F9DB9; overflow:auto;}
+    </style>
+
+    <script type="text/javascript">
+    function setup() {
+      //Change the ws:// scheme URL below to the one on your own server or the one
+      //provided by the instructor
+      var host = "ws://students.academyx.com:7000";
+      try{
+        socket = new WebSocket(host);
+        log('WebSocket - status '+socket.readyState);
+        socket.onopen    = function(msg){ log("Connect - status " + this.readyState); };
+
+        //Change the following line to use DOM Level 2 events
+        socket.onmessage = function(msg){ log("Received: "+msg.data); };
+        //Add another event handler that
+        //     1. checks to see if the data in the incoming message begins with "Headline"
+        //     2. if so, creates a h2 element with the headline text in it, and adds that to the #newsbox div
+
+        socket.onclose   = function(msg){ log("Disconnect - status " + this.readyState); };
+      }
+      catch(e) {
+        log(e);
+      }
+    }
+
+    function send(){
+      msg = $("msg").value;
+      if (msg) {
+        try {
+            socket.send(msg);
+            log('Sent: '+msg);
+        } catch(e) {
+            log(e);
+        }
+      }
+    }
+
+    function quit(){
+      log("done");
+      socket.close();
+    }
+
+    function $(id){ return document.getElementById(id); }
+    function log(msg){ $("log").innerHTML+="<br/>"+msg; }
+    </script>
+
+    </head>
+    <body onload="setup()">
+         <h3>WebSocket Demo</h3>
+         <div id="log"></div>
+         <input id="msg" type="textbox"/>
+         <button onclick="send()">Send</button>
+         <button onclick="quit()">Quit</button>
+         <div>Commands: hello, hi, name</div>
+         <br/>
+         <div id="newsbox">
+            <h1>Breaking News:</h1>
+         </div>
+    </body>
+</html>

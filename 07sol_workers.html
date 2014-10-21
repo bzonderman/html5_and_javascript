@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Web Worker LAB</title>
+        <script type="text/javascript">
+            worker = new Worker('07sol_workers.js');
+			
+			worker.addEventListener('error', function(e) {
+				appendToTextArea([
+				  'ERROR: Line ', e.lineno, ' in ', e.filename, ': ', e.message].join(''));
+			}, false);
+
+			worker.addEventListener('message', function(e) {
+				var solution = JSON.parse(e.data);
+			    appendToTextArea('Worker found solution: to job number ' + 
+					solution.job + ": a= " + solution.a + ", b=" + solution.b +
+					", c= " + solution.c);			
+			}, false);
+
+			jobNumber = 0;
+			
+			function sendJob() {
+			  var a = document.querySelector("#a").value;
+			  var b = document.querySelector("#b").value;
+			  var c = document.querySelector("#c").value;			  			  
+			  var job = JSON.stringify({ a: a, b: b, c: c, job: jobNumber});
+			  worker.postMessage(job);
+			  appendToTextArea("Sent job number " + jobNumber + " to worker");
+			  jobNumber++;
+			}
+			
+			function appendToTextArea(str) {				
+				var textarea = document.querySelector('textarea');
+				textarea.value = textarea.value + str + "\n";
+			}			
+		</script>
+	</head>
+    <body>
+        <h2>Web Worker LAB</h2>
+		<p>Fill in these coefficients to create a cubic polynomial job for the worker:</p>
+		a: <input type="text" id="a"/><br/>
+		b: <input type="text" id="b"/><br/>
+		c: <input type="text" id="c"/><br/>
+        <button onclick="sendJob();">Send job to worker</button>
+        <br/>
+		Output:<br/>
+        <textarea cols="60" rows="6"></textarea>
+    </body>
+</html>
+

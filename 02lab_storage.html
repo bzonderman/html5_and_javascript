@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Offline Storage Lab</title>
+        <script type="text/javascript">
+            function save() {
+                var firstName = document.querySelector("#firstName").value;
+                var lastName = document.querySelector("#lastName").value;
+                var email =  document.querySelector("#email").value;                
+            /*
+                complete this section to save data to local storage
+            */            
+            };
+            
+            function show() {                
+                /* implement this function to display the addresses in the ul tag with id "addressList" */             
+            }        
+        </script>
+    </head>
+    <body>
+        <h2>Lab</h2>
+        <p>An example that looks lets us build and display an address book</p>        
+        New address book entry<br/>
+        First name:<input type="text" id="firstName"/> ... Last name: <input type="text" id="lastName"/> ... Email address: <input type="text" id="email"/>        
+        <button onclick="save();">Save to address book</button>
+        <br/>
+        <hr/>
+        <button onclick="show();">List all addresses below</button>
+        <br/>
+        Addresses:
+        <ul id="addressList">
+        </ul>        
+    </body>
+</html>

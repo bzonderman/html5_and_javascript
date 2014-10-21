@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Drag/Drop Lab</title>        
+        <script type="text/javascript">                  
+            window.onload = function() {
+                items = document.querySelectorAll("#catalog li");
+                for (var i=0; i<items.length; i++) {
+                    items[i].addEventListener('dragstart', handleDragStart, false);
+                }
+                
+                document.querySelector("#cart").addEventListener('dragover', handleDragOverCart, false);
+                document.querySelector("#cart").addEventListener('drop', handleDropInCart, false);
+                
+                document.querySelector("#trash").addEventListener('dragover', handleDragOverTrash, false);
+                document.querySelector("#trash").addEventListener('drop', handleDropInTrash, false);
+                
+                priceTotal = 0;
+            }
+            
+            handleDragStart = function(e) {                
+                e.dataTransfer.setData('text/html', this.innerHTML);  
+                e.dataTransfer.setData('text/plain', this.getAttribute("data-price")); //FF doesn't support data-*                
+            }
+            
+            handleDragOverCart = function(e) {               
+                if (e.dataTransfer.getData('text/html') != "cart item") {
+                     e.preventDefault();
+                }                
+            }
+            
+            handleDragOverTrash = function(e) {               
+                if (e.dataTransfer.getData('text/html') == "cart item") {
+                     e.preventDefault();
+                }                
+            }
+            
+            handleDropInCart = function(e) {
+                e.preventDefault();
+                var price = e.dataTransfer.getData('text/plain');
+                var li = document.createElement("li");
+                li.innerHTML = e.dataTransfer.getData('text/html');
+                li.id = new Date().getTime();
+                li.setAttribute("draggable", true);
+                li.addEventListener('dragstart', function(e2) {
+                      e2.dataTransfer.setData('text/html', "cart item");
+                      e2.dataTransfer.setData('text/plain', price);
+                      e2.dataTransfer.setData('id', li.id);
+                }, false);
+                document.querySelector("#cart ul").appendChild(li);                
+                document.querySelector("#total").innerHTML = (priceTotal += parseFloat(price));
+            }
+            
+            handleDropInTrash = function(e) {
+                e.preventDefault();
+                var price = e.dataTransfer.getData('text/plain');                                         
+                document.querySelector("#cart ul").removeChild(document.getElementById(e.dataTransfer.getData('id')));
+                document.querySelector("#total").innerHTML = (priceTotal -= parseFloat(price));
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Drag/Drop Lab</h2>  
+        <div>
+            <h4>General Store :: Product Catalog</h4>
+            <ul id="catalog">
+                <li data-price="0.25" draggable="true">12-oz. Cup</li>
+                <li data-price="0.99" draggable="true">Pack of 100 Colored Index Cards</li>
+                <li data-price="12.50" draggable="true">SD Cards Reader (USB 2)</li>
+                <li data-price="1.10" draggable="true">Gourd, Decorative</li>
+            </ul>
+        </div>
+        <hr/>
+        <div id="cart">
+            <h4>My Shopping Cart</h4>
+            <ul>
+            </ul>
+            Total price: $<span id="total">0.00</span>
+        </div>
+        <hr/>
+        <div id="trash">
+        <h5>Trash - Drag Items Here to Remove them From the Cart</h5>
+        <br/>
+        <br/>
+        </div>
+    </body>
+</html>

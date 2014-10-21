@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>GEOLOCATION Notes and Examples</title>
+        <script type="text/javascript">
+            function showCoordinates() {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.querySelector("textarea").value = 
+                        "Your latitude is " + position.coords.latitude
+                        + " and your longitude is " + position.coords.longitude;
+                });
+            }        
+        </script>
+    </head>
+    <body>
+        <h2>GEOLOCATION Notes and Examples</h2>
+        <p>A very simple example that displays a user’s coordinates</p>
+        <button onclick="showCoordinates();">Show my coordinates</button>
+        <br/>
+        <textarea cols="60" rows="6"></textarea>
+    </body>
+</html>

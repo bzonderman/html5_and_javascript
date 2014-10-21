@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Drag and Drop Notes and Examples</title>
+        <script type="text/javascript">
+            window.onload = function() {
+                document.querySelector("#item1").addEventListener('dragstart', handleDragStart, false);
+                
+                document.querySelector("#item2").addEventListener('dragover', handleDragOver, false);
+                document.querySelector("#item2").addEventListener('drop', handleDrop, false);
+            }
+            
+            handleDragStart = function(e) {                
+                e.dataTransfer.setData('text/html', this.innerHTML);                
+            }
+            
+            handleDragOver = function(e) {
+                if (e.preventDefault) {
+                     e.preventDefault(); // Necessary. Allows us to drop.
+                }
+            }
+            
+            handleDrop = function(e) {
+                this.innerHTML = "Received drop of " + e.dataTransfer.getData('text/html');
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Notes and Examples</h2>    
+        <div id="item1" style="background-color:yellow; width:150px" draggable="true">"Drag Me!"</div>    
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div id="item2" style="background-color:green; width:150px">Drop Here</div>    
+    </body>
+</html>

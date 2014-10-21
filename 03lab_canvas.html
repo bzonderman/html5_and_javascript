@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Canvas Lab</title>
+        <script type="text/javascript">
+            window.onload = function() {
+                canv = document.querySelector('#myCanvas');                
+                canv.onclick = function(e) {
+                    var x = e.clientX - canv.offsetLeft;
+                    var y = e.clientY - canv.offsetTop;
+                    draw(x,y);
+                }; 
+            }
+                       
+            function draw(x, y) {                
+                //move and/or extend the currently drawn path to the coordinates x, y
+            }    
+
+            function erase() {
+               //clear the canvas and reset the path
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Lab</h2>
+        <p>A very simple drawing program</p>
+        <button onclick="erase();">erase</button>        
+        <br/>
+        <canvas id="myCanvas" width="400" height="400"/>        
+    </body>
+</html>

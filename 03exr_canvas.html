@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Canvas Notes and Examples</title>
+        <script type="text/javascript">
+            function draw() {
+                canv = document.querySelector('#myCanvas'); 
+                ctx = canv.getContext("2d");
+                ctx.fillRect(0,0,canv.width,canv.height);
+                ctx.fillStyle = "yellow";
+                ctx.fillRect(10,10,200,50);
+                ctx.font = "18pt Times";
+                ctx.fillText("Hello World!", 250, 350);
+                
+                ctx.strokeStyle="green";
+                ctx.lineWidth=8;
+                ctx.moveTo(200,200);                
+                ctx.lineTo(300,300);
+                ctx.quadraticCurveTo(0,450,200,300);
+                ctx.closePath();
+                ctx.stroke();                
+                ctx.fill();
+                
+                imageData = ctx.getImageData(100, 100, 200, 200);
+                pixels = imageData.data;
+                for (var i=2; i<pixels.length; i+=4) {
+                    pixels[i]=255;
+                }
+                ctx.putImageData(imageData, 100, 100);
+            }            
+        </script>
+    </head>
+    <body>
+        <h2>Notes and Examples</h2>    
+        <button onclick="draw();">draw</button>        
+        <br/>
+        <canvas id="myCanvas" width="400" height="400"/>        
+    </body>
+</html>

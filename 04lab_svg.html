@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>SVG Raphael Lab</title>
+        <script src="https://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js" type="text/javascript"></script>
+        <script type="text/javascript">                  
+            function start() {
+                //set up Raphael/SVG canvas attached to the mySVG div                
+                //fill the background with black
+                
+                setInterval(moveRectangles, 40);
+                score = 0;
+                misses = 0;            
+                rectangles = [];
+                
+                //create white 24pt Times text near the bottom that says "start clicking"
+                //assign the text object to a variable we can update later as the score changes   
+                
+            }
+            
+            function updateScore() {
+                scoreText = "Score: hit " + score + " & missed " + misses;                
+                //set the score text object's text to be this newly updated scoreText
+                
+            }           
+            
+            function moveRectangles() {
+                for (var i=0; i<rectangles.length; i++) {                    
+                    var rect = rectangles[i];
+                    if (!rect) continue;
+                    
+                    //assign the rectangle's old "y" coordinate value to the variable "oldY"                    
+                    
+                    if (oldY >= 400) {
+                        misses++;
+                        updateScore();
+                        //remove the rectangle from the Raphael/SVG canvas
+                        
+                        rectangles[i] = null;
+                    } else {                    
+                        //move the rectangle down 3 pixels from its oldY location  
+                        
+                    }                    
+                }
+                if (Math.random()<0.04) {
+                    //create a new rectangle at a random location along the top of the SVG canvas
+                    //fill it with green, and assign it to the variable "newRect"
+                    
+                    handleClick = function (event) {
+                        score++;
+                        updateScore();
+                        this.remove();
+                    };
+                    
+                    //add an event handler to the new rectangle that points to the handleClick function
+                    
+                    rectangles.push(newRect);
+                }
+            }                      
+        </script>
+    </head>
+    <body>
+        <h2>SVG Raphael Lab</h2>        
+        <button onclick="start();">start</button>        
+        <br/>
+        <div id="mySVG" width="400" height="400"/>        
+    </body>
+</html>
