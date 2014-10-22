@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>SVG Raphael Lab</title>
+        <script src="raphael-min.js"></script>
+        <script type="text/javascript">                  
+            function start() {
+                paper = Raphael("mySVG"); //set up Raphael/SVG canvas attached to the mySVG div                
+                paper.rect(0, 0, 400, 400).attr('fill', '#000');//fill the background with black
+                text = paper.text(200, 20, 'Start clicking').attr({"font": "18pt Arial", "fill": "#ccc"}).toFront();
+                
+                setInterval(moveRectangles, 40);
+                score = 0;
+                misses = 0;            
+                rectangles = [];
+                colors =["red", "pink","purple", "#6B4AFF", "#54B7FF","#3FFFD4", "yellow","orange" ];
+                //create white 24pt Times text near the bottom that says "start clicking"
+                //assign the text object to a variable we can update later as the score changes   
+                
+            }
+            
+            function updateScore() {                
+                scoreText = "Score: hit " + score + " & missed " + misses;
+                text.attr({"text": scoreText});//set the score text object's text to be this newly updated scoreText
+            }           
+            
+            function moveRectangles() {
+                for (var i=0; i<rectangles.length; i++) {
+                    var rect = rectangles[i];
+                    if (!rect) continue;
+                    
+                    //assign the rectangle's old "y" coordinate value to the variable "oldY"                    
+                    var oldY = rect.attr("y");
+
+                    if (oldY <= 5) { // reached the top yet?
+                        misses++;
+                        updateScore();
+                        rect.remove(); //remove the rectangle from the Raphael/SVG canvas
+                        rectangles[i] = null;
+                    } else {  // not at the top                  
+                        rect.attr({"y": oldY - 3});//move the rectangle up 3 pixels from its oldY location                          
+                    }                    
+                }
+                if (Math.random()<0.03) {
+                    //create a new rectangle at a random location along the top of the SVG canvas
+                    //fill it with green, and assign it to the variable "newRect"
+                    var newX = Math.random() * 370;
+                    var newRect = paper.rect(newX, 370, 30, 30, 15).attr({"fill": colors[i % colors.length]}); //
+                    handleClick = function (event) {
+                        score++;
+                        updateScore();
+                        this.remove();
+                    };
+                    //add an event handler to the new rectangle that points to the handleClick function
+                    newRect.click(handleClick);
+                    rectangles.push(newRect);
+                }
+            }                      
+        </script>
+    </head>
+    <body>
+        <h2>SVG Raphael Lab</h2>        
+        <button onclick="start();">start</button>        
+        <br/>
+        <div id="mySVG" width="400" height="400"/>        
+    </body>
+</html>
